@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CANOPY 2027 — Climate, Cities &amp; Systems Summit · Lisbon</title>
+<meta name="description" content="CANOPY 2027. Three days on climate, cities and the systems that shape them. 18–20 March 2027, Lisbon. 4,000 builders, researchers and investors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CANOPY 2027 — single page lander
+   Palette: deep forest base + single emerald accent
+   ============================================================ */
+:root{
+  --bg:#08120d;
+  --bg-2:#0b1811;
+  --surface:#0f1e16;
+  --surface-2:#13271d;
+  --line:rgba(255,255,255,.09);
+  --line-soft:rgba(255,255,255,.05);
+  --text:#e9f4ee;
+  --muted:#95aa9f;
+  --muted-2:#6d8379;
+  --accent:#3fd18b;
+  --accent-soft:rgba(63,209,139,.12);
+  --accent-line:rgba(63,209,139,.28);
+  --font:'Outfit',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --r:16px;
+  --r-lg:22px;
+  --max:1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.65;
+  letter-spacing:.002em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(1100px 620px at 82% -8%, rgba(63,209,139,.10), transparent 62%),
+    radial-gradient(760px 560px at 4% 22%, rgba(23,84,58,.40), transparent 66%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.32;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='.5'/></svg>");
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input{font:inherit}
+::selection{background:var(--accent);color:#06210f}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* ---------- layout ---------- */
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 28px;position:relative;z-index:2}
+section{position:relative;z-index:2}
+.sec{padding:clamp(76px,9vw,128px) 0}
+.sec + .sec{border-top:1px solid var(--line-soft)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--accent-line)}
+h1,h2,h3,h4{margin:0;line-height:1.08;letter-spacing:-.025em;font-weight:600}
+.h2{font-size:clamp(28px,3.6vw,44px);max-width:19ch}
+.lede{color:var(--muted);font-size:clamp(15.5px,1.35vw,18px);max-width:58ch;line-height:1.72;margin:20px 0 0}
+.sec-head{margin-bottom:clamp(38px,4.4vw,60px)}
+.sec-head.row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+
+/* ---------- buttons ---------- */
+.btn{
+  --bg-btn:var(--accent);--fg-btn:#052015;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 24px;border-radius:100px;
+  background:var(--bg-btn);color:var(--fg-btn);
+  font-weight:600;font-size:15px;letter-spacing:-.01em;
+  border:1px solid transparent;
+  transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s,background .25s,border-color .25s;
+  position:relative;overflow:hidden;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -12px rgba(63,209,139,.65)}
+.btn:active{transform:translateY(0)}
+.btn .arw{transition:transform .25s}
+.btn:hover .arw{transform:translateX(4px)}
+.btn.ghost{
+  --bg-btn:transparent;--fg-btn:var(--text);
+  border-color:var(--line);background:rgba(255,255,255,.02);
+}
+.btn.ghost:hover{border-color:var(--accent-line);background:var(--accent-soft);box-shadow:none}
+.btn.sm{padding:11px 18px;font-size:14px}
+
+/* ---------- nav ---------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--accent),#8fe7b6);z-index:60;transition:width .1s linear}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  transition:background .35s,border-color .35s,backdrop-filter .35s,padding .35s;
+  border-bottom:1px solid transparent;
+}
+.nav.stuck{background:rgba(8,18,13,.82);backdrop-filter:blur(16px) saturate(140%);border-bottom-color:var(--line-soft)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px;transition:height .35s}
+.nav.stuck .nav-in{height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.14em;font-size:15px}
+.brand .mark{width:30px;height:30px;flex:none}
+.brand small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;color:var(--muted-2);font-weight:400;margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:14.5px;color:var(--muted);font-weight:500;position:relative;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1px;background:var(--accent);transition:right .3s cubic-bezier(.2,.8,.3,1)}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{right:0}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;align-items:center;justify-content:center}
+.burger span{display:block;width:16px;height:1.5px;background:var(--text);position:relative;transition:.3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:16px;height:1.5px;background:var(--text);transition:.3s}
+.burger span::before{top:-5px}.burger span::after{top:5px}
+.burger.open span{background:transparent}
+.burger.open span::before{top:0;transform:rotate(45deg)}
+.burger.open span::after{top:0;transform:rotate(-45deg)}
+.drawer{
+  position:fixed;inset:76px 0 auto;z-index:45;
+  background:rgba(9,20,14,.97);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+  padding:26px 28px 34px;display:none;
+  transform:translateY(-8px);opacity:0;transition:.28s;
+}
+.drawer.open{display:block;transform:none;opacity:1}
+.drawer a{display:block;padding:13px 0;font-size:19px;font-weight:500;border-bottom:1px solid var(--line-soft)}
+.drawer .btn{display:inline-flex;margin-top:22px;width:100%;justify-content:center;text-align:center}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:calc(76px + clamp(56px,8vw,104px)) 0 clamp(56px,7vw,96px);overflow:hidden}
+#particles{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.85}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:0;pointer-events:none}
+.aurora.a1{width:560px;height:560px;background:radial-gradient(circle,rgba(63,209,139,.22),transparent 70%);top:-160px;right:-120px;animation:float1 18s ease-in-out infinite}
+.aurora.a2{width:480px;height:480px;background:radial-gradient(circle,rgba(20,96,66,.55),transparent 70%);bottom:-180px;left:-140px;animation:float2 22s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,40px) scale(1.12)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.08)}}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:56px;align-items:end}
+.hero h1{font-size:clamp(46px,8.4vw,104px);font-weight:700;letter-spacing:-.04em;line-height:.95}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero h1 .stroke{color:transparent;-webkit-text-stroke:1.4px rgba(233,244,238,.42)}
+.hero-sub{color:var(--muted);font-size:clamp(16px,1.6vw,19.5px);max-width:52ch;line-height:1.68;margin:26px 0 0}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin:36px 0 0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:0;margin-top:44px;border-top:1px solid var(--line-soft);padding-top:26px}
+.hero-meta div{padding:0 30px;border-right:1px solid var(--line-soft)}
+.hero-meta div:first-child{padding-left:0}
+.hero-meta div:last-child{border-right:none}
+.hero-meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:7px}
+.hero-meta .v{font-size:15.5px;font-weight:500;letter-spacing:-.01em}
+
+/* countdown card */
+.card{
+  background:linear-gradient(165deg,rgba(19,39,29,.92),rgba(11,24,17,.92));
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.9);
+  backdrop-filter:blur(12px);
+}
+.cd-card{padding:28px 26px 24px;position:relative;overflow:hidden}
+.cd-card::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--accent-line),transparent)}
+.cd-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);display:flex;align-items:center;gap:8px}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(63,209,139,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,209,139,.55)}70%{box-shadow:0 0 0 11px rgba(63,209,139,0)}100%{box-shadow:0 0 0 0 rgba(63,209,139,0)}}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:20px 0 4px}
+.cd-cell{background:rgba(255,255,255,.035);border:1px solid var(--line-soft);border-radius:12px;padding:13px 6px;text-align:center}
+.cd-num{font-family:var(--mono);font-size:clamp(22px,2.6vw,29px);font-weight:500;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.cd-key{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);margin-top:8px}
+.cd-foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:var(--muted)}
+.live{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.08em}
+.live b{font-weight:500}
+.scroll-cue{position:absolute;left:28px;bottom:26px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted-2);z-index:2}
+.scroll-cue .bar{width:46px;height:1px;background:linear-gradient(90deg,var(--accent),transparent);position:relative;overflow:hidden}
+.scroll-cue .bar::after{content:"";position:absolute;top:0;left:0;width:14px;height:1px;background:var(--accent);animation:sweep 2.6s ease-in-out infinite}
+@keyframes sweep{0%{transform:translateX(-14px)}60%,100%{transform:translateX(46px)}}
+
+/* ---------- marquee ---------- */
+.marquee{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:17px 0;overflow:hidden;background:rgba(255,255,255,.014)}
+.marquee-track{display:flex;width:max-content;animation:slide 38s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);padding:0 26px;display:flex;align-items:center;gap:26px}
+.marquee span b{color:var(--accent);font-weight:400}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- stats ---------- */
+.stat-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden}
+.stat{background:var(--bg-2);padding:34px 28px}
+.stat .n{font-size:clamp(34px,4.2vw,52px);font-weight:600;letter-spacing:-.035em;line-height:1;color:var(--accent)}
+.stat .n .sfx{font-size:.38em;color:var(--muted);letter-spacing:0;margin-left:5px;font-weight:400}
+.stat .t{font-size:14.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+.s3{grid-column:span 3}
+.s4{grid-column:span 4}
+
+/* ---------- pillars ---------- */
+.split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(38px,6vw,84px);align-items:start}
+.pillars{border-top:1px solid var(--line-soft)}
+.pillar{display:grid;grid-template-columns:52px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid var(--line-soft);transition:padding-left .3s}
+.pillar:hover{padding-left:10px}
+.pillar .idx{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em;padding-top:4px}
+.pillar h4{font-size:18.5px;font-weight:600;letter-spacing:-.015em;margin-bottom:7px}
+.pillar p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.68}
+.pillar svg{color:var(--muted-2);margin-bottom:12px;transition:color .3s}
+.pillar:hover svg{color:var(--accent)}
+
+/* ---------- programme tabs ---------- */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line-soft);padding-bottom:20px;margin-bottom:12px}
+.tab{
+  padding:10px 20px;border-radius:100px;border:1px solid var(--line);color:var(--muted);
+  font-size:14px;font-weight:500;transition:.25s;background:rgba(255,255,255,.015);
+}
+.tab:hover{color:var(--text);border-color:var(--accent-line)}
+.tab[aria-selected="true"]{background:var(--accent);color:#052015;border-color:transparent;font-weight:600}
+.tab small{font-family:var(--mono);font-size:10.5px;opacity:.65;margin-left:7px;letter-spacing:.08em}
+.panel{display:none;animation:fade .4s ease}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.slot{
+  display:grid;grid-template-columns:132px 1fr auto;gap:26px;align-items:center;
+  padding:22px 20px;border-radius:14px;border:1px solid transparent;
+  transition:background .28s,border-color .28s,transform .28s;
+}
+.slot + .slot{border-top:1px solid var(--line-soft)}
+.slot:hover{background:rgba(255,255,255,.028);border-color:var(--line);transform:translateX(4px)}
+.slot .time{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.04em}
+.slot h4{font-size:17px;font-weight:500;margin-bottom:5px;letter-spacing:-.01em}
+.slot p{margin:0;color:var(--muted-2);font-size:13.5px}
+.slot .kind{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-2);border:1px solid var(--line);border-radius:100px;padding:6px 13px;white-space:nowrap;
+}
+.slot:hover .kind{color:var(--accent);border-color:var(--accent-line)}
+.slot.key .time{color:var(--text)}
+
+/* ---------- speakers ---------- */
+.spk-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.spk{
+  position:relative;border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;
+  background:var(--bg-2);padding:24px;min-height:236px;display:flex;flex-direction:column;
+  transition:transform .35s cubic-bezier(.2,.8,.3,1),border-color .3s,background .3s;
+}
+.spk:hover{transform:translateY(-5px);border-color:var(--accent-line);background:var(--surface)}
+.spk::after{content:"";position:absolute;inset:auto -30% -60% -30%;height:120px;background:radial-gradient(ellipse at center,var(--accent-soft),transparent 70%);opacity:0;transition:opacity .4s}
+.spk:hover::after{opacity:1}
+.spk .av{
+  width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  font-weight:600;font-size:19px;letter-spacing:.02em;flex:none;
+  background:linear-gradient(150deg,#173f2c,#0d2519);border:1px solid var(--accent-line);color:var(--accent);
+  margin-bottom:18px;transition:transform .4s cubic-bezier(.2,.8,.3,1);
+}
+.spk:hover .av{transform:scale(1.06) rotate(-4deg)}
+.spk h4{font-size:17.5px;font-weight:600;letter-spacing:-.015em}
+.spk .role{color:var(--muted-2);font-size:13.5px;margin-top:5px}
+.spk .talk{margin-top:auto;padding-top:16px;font-size:13px;color:var(--muted);border-top:1px solid var(--line-soft)}
+.spk .talk b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:7px;font-weight:400}
+
+/* ---------- tracks + bench ---------- */
+.bench-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(34px,5vw,72px);align-items:start}
+.bench-stat{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+.bench-stat .big{font-size:clamp(48px,6vw,72px);font-weight:700;letter-spacing:-.045em;line-height:.9;color:var(--accent)}
+.bench-stat .lbl{font-size:14px;color:var(--muted);max-width:22ch;line-height:1.45}
+.bench-row{display:grid;grid-template-columns:150px 1fr 62px;gap:16px;align-items:center;padding:9px 0}
+.bench-row .label{font-size:14px;color:var(--muted)}
+.bar-bg{height:16px;background:rgba(255,255,255,.05);border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,#2f9e68,var(--accent));border-radius:8px;width:0;transition:width 1.3s cubic-bezier(.22,.8,.28,1)}
+.bar-fill.alt{background:linear-gradient(90deg,#1d6a48,#8fe7b6)}
+.bench-row .val{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-align:right}
+.track-list{display:grid;gap:10px}
+.track{
+  display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  padding:16px 18px;border:1px solid var(--line-soft);border-radius:14px;background:rgba(255,255,255,.014);
+  transition:border-color .28s,background .28s,transform .28s;
+}
+.track:hover{border-color:var(--accent-line);background:var(--accent-soft);transform:translateX(5px)}
+.track svg{color:var(--accent);margin-top:3px}
+.track h4{font-size:16px;font-weight:600;margin-bottom:4px}
+.track p{margin:0;font-size:13.5px;color:var(--muted-2);line-height:1.6}
+
+/* ---------- venue ---------- */
+.venue-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(34px,5vw,70px);align-items:center}
+.map-card{padding:22px;border-radius:var(--r-lg);border:1px solid var(--line);background:linear-gradient(160deg,rgba(19,39,29,.8),rgba(11,24,17,.85))}
+.map-card svg{width:100%;height:auto}
+.travel{border-top:1px solid var(--line-soft)}
+.travel-row{display:grid;grid-template-columns:130px 1fr auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line-soft)}
+.travel-row .k{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2)}
+.travel-row p{margin:0;font-size:14.5px;color:var(--muted)}
+.travel-row .min{font-family:var(--mono);font-size:12px;color:var(--accent)}
+
+/* ---------- tickets ---------- */
+.tk-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:20px;align-items:start}
+.tk-featured{padding:38px 34px;position:relative;overflow:hidden;border-color:var(--accent-line)}
+.tk-featured::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 320px at 88% -10%,rgba(63,209,139,.16),transparent 65%);pointer-events:none}
+.tk-tag{
+  position:absolute;top:24px;right:24px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;background:var(--accent);color:#052015;padding:7px 13px;border-radius:100px;font-weight:500;
+}
+.tk-name{font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.tk-price{font-size:clamp(40px,5vw,58px);font-weight:700;letter-spacing:-.04em;line-height:1;margin:16px 0 4px}
+.tk-price small{font-size:.26em;font-weight:400;color:var(--muted-2);letter-spacing:.02em;margin-left:8px}
+.tk-note{color:var(--muted-2);font-size:13.5px}
+.tk-feats{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid var(--line-soft)}
+.tk-feats li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px;color:var(--muted)}
+.tk-feats svg{color:var(--accent);flex:none;margin-top:3px}
+.tk-side{display:grid;gap:20px}
+.tk-card{padding:26px}
+.tk-card .row{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.tk-card .tk-price{font-size:34px;margin:12px 0 2px}
+.tk-card .tk-feats{margin-top:20px}
+.tk-card .tk-feats li{font-size:13.5px;padding:9px 0}
+.tk-card .btn{margin-top:22px;width:100%;justify-content:center}
+
+/* ---------- faq ---------- */
+.faq{border-top:1px solid var(--line-soft);max-width:880px}
+.q{border-bottom:1px solid var(--line-soft)}
+.q > button{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;
+  padding:24px 0;text-align:left;font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--text);
+  transition:color .25s;
+}
+.q > button:hover{color:var(--accent)}
+.q .icon{flex:none;width:22px;height:22px;color:var(--accent);transition:transform .32s cubic-bezier(.2,.8,.3,1)}
+.q.open .icon{transform:rotate(45deg)}
+.q .a{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.2,.8,.3,1)}
+.q.open .a{max-height:280px}
+.q .a p{margin:0;padding:0 60px 26px 0;color:var(--muted);font-size:15px;line-height:1.72}
+
+/* ---------- cta ---------- */
+.cta-band{position:relative;overflow:hidden;border-top:1px solid var(--line-soft);background:linear-gradient(180deg,rgba(15,30,22,.6),transparent)}
+.cta-band .aurora.a1{width:640px;height:640px;top:-260px;right:-80px;opacity:.5}
+.cta-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(34px,5vw,64px);align-items:center;padding:clamp(64px,7vw,104px) 0}
+form.signup{display:flex;gap:10px;flex-wrap:wrap}
+form.signup input{
+  flex:1 1 240px;min-width:0;padding:14px 20px;border-radius:100px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text);
+  transition:border-color .25s,background .25s;
+}
+form.signup input::placeholder{color:var(--muted-2)}
+form.signup input:focus{outline:none;border-color:var(--accent-line);background:rgba(63,209,139,.06)}
+.form-note{font-size:13px;color:var(--muted-2);margin-top:14px;display:flex;align-items:center;gap:8px}
+.form-note.ok{color:var(--accent)}
+.form-note.err{color:#e8836b}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line-soft);padding:56px 0 34px;position:relative;z-index:2}
+.f-grid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:38px}
+.f-col h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);margin:0 0 16px;font-weight:400}
+.f-col a{display:block;padding:6px 0;font-size:14px;color:var(--muted);transition:color .2s}
+.f-col a:hover{color:var(--accent)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:46px;padding-top:24px;border-top:1px solid var(--line-soft);font-size:13px;color:var(--muted-2)}
+.socials{display:flex;gap:10px}
+.socials a{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;transition:.25s}
+.socials a:hover{border-color:var(--accent-line);background:var(--accent-soft);transform:translateY(-2px)}
+.socials svg{width:16px;height:16px;color:var(--muted)}
+.socials a:hover svg{color:var(--accent)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.8,.3,1),transform .7s cubic-bezier(.2,.8,.3,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:44px;align-items:start}
+  .split,.bench-wrap,.venue-grid,.tk-grid,.cta-inner{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .burger{display:flex}
+  .nav-cta .btn{display:none}
+  .stat{grid-column:span 6}
+  .spk{grid-column:span 6}
+  .f-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .scroll-cue{display:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .hero-meta{gap:18px}
+  .hero-meta div{padding:0 20px}
+  .hero-meta div:first-child{padding-left:0}
+  .slot{grid-template-columns:1fr;gap:10px;padding:18px 14px}
+  .slot .kind{justify-self:start}
+  .travel-row{grid-template-columns:1fr;gap:6px}
+  .stat,.spk{grid-column:span 12}
+  .f-grid{grid-template-columns:1fr}
+  .cd-grid{gap:6px}
+  .tk-featured{padding:30px 24px}
+  .q .a p{padding-right:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand" aria-label="CANOPY home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 29V13" stroke="#3fd18b" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 15C16 9.5 12 5 6.5 4c0 6.5 4 11 9.5 11Z" stroke="#3fd18b" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M16 19c0-5.5 4-10 9.5-11 0 6.5-4 11-9.5 11Z" stroke="#8fe7b6" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <span>CANOPY<small>LISBON · 2027</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#programme">Programme</a>
+      <a href="#speakers">Speakers</a>
+      <a href="#tracks">Tracks</a>
+      <a href="#venue">Venue</a>
+      <a href="#tickets">Tickets</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#tickets" class="btn sm">Get your pass
+        <svg class="arw" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="#programme">Programme</a>
+  <a href="#speakers">Speakers</a>
+  <a href="#tracks">Tracks</a>
+  <a href="#venue">Venue</a>
+  <a href="#tickets">Tickets</a>
+  <a href="#faq">FAQ</a>
+  <a href="#tickets" class="btn">Get your pass</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">18–20 March 2027 · Lisbon, Portugal</p>
+      <h1>Ideas that<br><em>take root.</em><br><span class="stroke">Then grow.</span></h1>
+      <p class="hero-sub">Three days on climate, cities and the systems that shape them — where 4,000 builders, researchers and investors argue, build and ship in the same room.</p>
+      <div class="hero-cta">
+        <a href="#tickets" class="btn">Get your pass
+          <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#programme" class="btn ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z"/></svg>
+          Watch 2026 recap
+        </a>
+      </div>
+      <div class="hero-meta">
+        <div><span class="k">Dates</span><span class="v">18–20 March 2027</span></div>
+        <div><span class="k">Venue</span><span class="v">FIL · Lisbon</span></div>
+        <div><span class="k">Format</span><span class="v">3 days · 6 tracks</span></div>
+      </div>
+    </div>
+
+    <aside class="card cd-card" aria-label="Countdown to the event">
+      <div class="cd-label"><span class="pulse"></span> Doors open in</div>
+      <div class="cd-grid">
+        <div class="cd-cell"><div class="cd-num" id="cd-d">--</div><div class="cd-key">Days</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-h">--</div><div class="cd-key">Hours</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-m">--</div><div class="cd-key">Mins</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-s">--</div><div class="cd-key">Secs</div></div>
+      </div>
+      <div class="cd-foot">
+        <span>Early-bird ends <b style="color:var(--text)">31 Oct</b></span>
+        <span class="live"><b id="live-count">2,847</b> registered</span>
+      </div>
+    </aside>
+  </div>
+
+  <div class="scroll-cue"><span class="bar"></span> Scroll to explore</div>
+</header>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mq">
+    <span><b>18–20 March 2027</b> · Lisbon</span>
+    <span>Climate · Cities · Systems</span>
+    <span><b>4,000</b> attendees</span>
+    <span><b>120+</b> speakers</span>
+    <span>6 stages · 40 labs</span>
+    <span><b>Code</b> · <b>2027</b></span>
+  </div>
+</div>
+
+<!-- ================= SIGNAL / STATS ================= -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Why now</p>
+      <h2 class="h2">The decade of rebuilding is already underway.</h2>
+      <p class="lede">Energy, food, housing and mobility are being redesigned in real time — in cities that cannot wait for perfect plans. CANOPY is where the people doing that work meet the people funding it.</p>
+    </div>
+    <div class="stat-grid rv">
+      <div class="stat s3">
+        <div class="n"><span data-count="4">0</span><span class="sfx">k+</span></div>
+        <div class="t">Attendees across three days — a third of them first-timers.</div>
+      </div>
+      <div class="stat s3">
+        <div class="n"><span data-count="120">0</span><span class="sfx">+</span></div>
+        <div class="t">Speakers, from grid operators to municipal architects.</div>
+      </div>
+      <div class="stat s3">
+        <div class="n"><span data-count="40">0</span></div>
+        <div class="t">Hands-on labs where you leave with working code or a signed pilot.</div>
+      </div>
+      <div class="stat s3">
+        <div class="n"><span data-count="68">0</span><span class="sfx">%</span></div>
+        <div class="t">Of last year's delegates returned for 2027.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PILLARS ================= -->
+<section class="sec">
+  <div class="wrap split">
+    <div class="rv">
+      <p class="eyebrow">What you get</p>
+      <h2 class="h2">Four days of signal, zero filler.</h2>
+      <p class="lede">Every CANOPY session is built around a deliverable, not a slide deck. You arrive with a question and leave with something working.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar rv">
+        <div class="idx">01</div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l5-5 5 5"/></svg>
+          <h4>Keynotes that argue a position</h4>
+          <p>No panels of five. Two voices, one contested claim, and a moderated Q&amp;A that runs long on purpose.</p>
+        </div>
+      </div>
+      <div class="pillar rv d1">
+        <div class="idx">02</div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h10"/></svg>
+          <h4>Breakouts by domain, not by job title</h4>
+          <p>Six tracks run in parallel — grid, buildings, food, water, land and capital — so you meet peers working the same problem.</p>
+        </div>
+      </div>
+      <div class="pillar rv d2">
+        <div class="idx">03</div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5Z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/></svg>
+          <h4>Labs with a working artefact</h4>
+          <p>Model a district heat network, price a retrofit, draft a procurement rule. Depart with a repo or a signed pilot.</p>
+        </div>
+      </div>
+      <div class="pillar rv d3">
+        <div class="idx">04</div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+          <h4>Rooms you can only get in person</h4>
+          <p>Investor office hours, municipal roundtables and a speaker lounge that unlocks with any tier above Field.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMME ================= -->
+<section class="sec" id="programme">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <p class="eyebrow">Programme</p>
+        <h2 class="h2">Three days, six stages.</h2>
+      </div>
+      <p class="lede" style="margin:0;max-width:42ch">A working schedule — 40% of the grid is reserved for labs and roundtables you sign up for in the app.</p>
+    </div>
+
+    <div class="tabs rv" role="tablist" aria-label="Programme days">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="d1" id="tab-d1">Day 01 <small>Thu 18</small></button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="d2" id="tab-d2">Day 02 <small>Fri 19</small></button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="d3" id="tab-d3">Day 03 <small>Sat 20</small></button>
+    </div>
+
+    <div class="panel on" id="d1" role="tabpanel" aria-labelledby="tab-d1">
+      <div class="slot key rv"><div class="time">09:00</div><div><h4>Opening: The decade of rebuilding</h4><p>Main Stage · Dr. Amara Okoye</p></div><div class="kind">Keynote</div></div>
+      <div class="slot rv d1"><div class="time">10:15</div><div><h4>Grid storage after the hype</h4><p>Energy Stage · Leo Marchetti, Nexa Grid</p></div><div class="kind">Breakout</div></div>
+      <div class="slot rv d2"><div class="time">11:30</div><div><h4>Lab: model a district heat network</h4><p>Lab 2 · 60 seats · open simulation kit</p></div><div class="kind">Lab</div></div>
+      <div class="slot rv d3"><div class="time">13:30</div><div><h4>Capital in a higher-for-longer world</h4><p>Main Stage · Hanne Bergström, Meridian</p></div><div class="kind">Keynote</div></div>
+      <div class="slot rv d4"><div class="time">15:00</div><div><h4>Roundtable: procurement that ships</h4><p>Studio C · municipal buyers + vendors</p></div><div class="kind">Roundtable</div></div>
+      <div class="slot rv d4"><div class="time">19:30</div><div><h4>Opening night: night garden</h4><p>FIL riverside · all tiers welcome</p></div><div class="kind">Social</div></div>
+    </div>
+
+    <div class="panel" id="d2" role="tabpanel" aria-labelledby="tab-d2">
+      <div class="slot key rv"><div class="time">09:00</div><div><h4>Shade as infrastructure</h4><p>Main Stage · Sofia Almeida, Mesa Studio</p></div><div class="kind">Keynote</div></div>
+      <div class="slot rv d1"><div class="time">10:15</div><div><h4>Forecasting on a warming planet</h4><p>Data Stage · Priya Raghunathan, Axon Labs</p></div><div class="kind">Breakout</div></div>
+      <div class="slot rv d2"><div class="time">11:30</div><div><h4>Lab: price a retrofit</h4><p>Lab 4 · finance track · spreadsheet + model</p></div><div class="kind">Lab</div></div>
+      <div class="slot rv d3"><div class="time">13:30</div><div><h4>Building with what you have</h4><p>Main Stage · Kwame Mensah, Lagos Urban Office</p></div><div class="kind">Keynote</div></div>
+      <div class="slot rv d4"><div class="time">15:30</div><div><h4>Investor office hours</h4><p>Studio B · 25 min slots · by application</p></div><div class="kind">Meeting</div></div>
+      <div class="slot rv d4"><div class="time">20:00</div><div><h4>Lisbon dinner: 40 long tables</h4><p>Palácio do Rio · ticket tier: Canopy+</p></div><div class="kind">Social</div></div>
+    </div>
+
+    <div class="panel" id="d3" role="tabpanel" aria-labelledby="tab-d3">
+      <div class="slot key rv"><div class="time">09:30</div><div><h4>Stories that move money</h4><p>Main Stage · Elena Vasquez, Field Notes</p></div><div class="kind">Keynote</div></div>
+      <div class="slot rv d1"><div class="time">10:45</div><div><h4>Circular supply chains at scale</h4><p>Food &amp; Water Stage · Tomás Ferreira, Terra Cycles</p></div><div class="kind">Breakout</div></div>
+      <div class="slot rv d2"><div class="time">12:00</div><div><h4>Lab: draft a municipal procurement rule</h4><p>Policy Studio · template provided</p></div><div class="kind">Lab</div></div>
+      <div class="slot rv d3"><div class="time">14:00</div><div><h4>What we take home</h4><p>Main Stage · closing synthesis with all track leads</p></div><div class="kind">Keynote</div></div>
+      <div class="slot rv d4"><div class="time">16:00</div><div><h4>Open studios &amp; demos</h4><p>FIL hall 2 · 40 teams · no stage, no slides</p></div><div class="kind">Expo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPEAKERS ================= -->
+<section class="sec" id="speakers">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <p class="eyebrow">Speakers</p>
+        <h2 class="h2">People who ship, not people who post.</h2>
+      </div>
+      <p class="lede" style="margin:0;max-width:40ch">Every keynote is invited for what they have built. The first 20 speakers are announced in October.</p>
+    </div>
+
+    <div class="spk-grid">
+      <article class="spk rv s3"><div class="av">AO</div><h4>Dr. Amara Okoye</h4><div class="role">Ecologist · Coastal Futures Lab</div><div class="talk"><b>Keynote · Day 01</b>Rewilding the city grid</div></article>
+      <article class="spk rv d1 s3"><div class="av">LM</div><h4>Leo Marchetti</h4><div class="role">CTO · Nexa Grid</div><div class="talk"><b>Breakout · Day 01</b>Grid storage after the hype</div></article>
+      <article class="spk rv d2 s3"><div class="av">SA</div><h4>Sofia Almeida</h4><div class="role">Urban Designer · Mesa Studio</div><div class="talk"><b>Keynote · Day 02</b>Shade as infrastructure</div></article>
+      <article class="spk rv s3"><div class="av">TF</div><h4>Tomás Ferreira</h4><div class="role">Founder · Terra Cycles</div><div class="talk"><b>Breakout · Day 03</b>Circular supply chains at scale</div></article>
+      <article class="spk rv d1 s3"><div class="av">HB</div><h4>Hanne Bergström</h4><div class="role">Head of Climate · Meridian</div><div class="talk"><b>Keynote · Day 01</b>Capital in a higher-for-longer world</div></article>
+      <article class="spk rv d2 s3"><div class="av">PR</div><h4>Priya Raghunathan</h4><div class="role">AI Research Lead · Axon Labs</div><div class="talk"><b>Breakout · Day 02</b>Forecasting on a warming planet</div></article>
+      <article class="spk rv d3 s3"><div class="av">KM</div><h4>Kwame Mensah</h4><div class="role">Director · Lagos Urban Office</div><div class="talk"><b>Keynote · Day 02</b>Building with what you have</div></article>
+      <article class="spk rv d4 s3"><div class="av">EV</div><h4>Elena Vasquez</h4><div class="role">Editorial Director · Field Notes</div><div class="talk"><b>Keynote · Day 03</b>Stories that move money</div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRACKS + MIX ================= -->
+<section class="sec" id="tracks">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Tracks &amp; mix</p>
+      <h2 class="h2">Six tracks. One shared argument.</h2>
+    </div>
+    <div class="bench-wrap">
+      <div class="rv">
+        <div class="bench-stat"><span class="big">48%</span><span class="lbl">of the three days is hands-on — labs, roundtables and studios</span></div>
+        <p style="color:var(--muted);font-size:15px;margin:0 0 26px">Where the schedule actually goes. Talking about building is not building, so we cut the panels.</p>
+        <div class="bench-row"><span class="label">Breakout tracks</span><div class="bar-bg"><div class="bar-fill" data-w="34"></div></div><span class="val">34%</span></div>
+        <div class="bench-row"><span class="label">Hands-on labs</span><div class="bar-bg"><div class="bar-fill alt" data-w="27"></div></div><span class="val">27%</span></div>
+        <div class="bench-row"><span class="label">Main-stage keynotes</span><div class="bar-bg"><div class="bar-fill" data-w="18"></div></div><span class="val">18%</span></div>
+        <div class="bench-row"><span class="label">Roundtables</span><div class="bar-bg"><div class="bar-fill alt" data-w="12"></div></div><span class="val">12%</span></div>
+        <div class="bench-row"><span class="label">Studios &amp; expo</span><div class="bar-bg"><div class="bar-fill" data-w="9"></div></div><span class="val">9%</span></div>
+      </div>
+      <div class="track-list rv d1">
+        <div class="track">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 12.7a1 1 0 0 0 .8 1.6H11l-1 8 8.9-10.7a1 1 0 0 0-.8-1.6H12z"/></svg>
+          <div><h4>Energy &amp; grids</h4><p>Storage, interconnection, and the software running it.</p></div>
+        </div>
+        <div class="track">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg>
+          <div><h4>Buildings &amp; heat</h4><p>Retrofit economics, cooling, and shading as infrastructure.</p></div>
+        </div>
+        <div class="track">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.8-1.2-2-1.8-3.4-1.8-1.9 0-3.1 1-3.1 2.4 0 3.2 6.3 1.8 6.3 4.9 0 1.4-1.3 2.4-3.3 2.4-1.5 0-2.7-.6-3.5-1.8M12 5.5v13"/></svg>
+          <div><h4>Capital &amp; policy</h4><p>Pricing carbon, public procurement, and money that moves.</p></div>
+        </div>
+        <div class="track">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18M5 17V9m4 8V5m4 12v-6m4 6V7m4 10v-4"/></svg>
+          <div><h4>Food &amp; agriculture</h4><p>Soil, supply chains and where the calories actually come from.</p></div>
+        </div>
+        <div class="track">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S6 9.4 6 13.6a6 6 0 0 0 12 0c0-4.2-6-10.9-6-10.9Z"/></svg>
+          <div><h4>Water &amp; waste</h4><p>Reuse, leakage, and the utilities nobody sees underground.</p></div>
+        </div>
+        <div class="track">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h2l2-5 2.5 8 2.5-12 2.5 9 2-4 2 4h3"/></svg>
+          <div><h4>Mobility &amp; land</h4><p>Transit, freight, and the cost of holding ground.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VENUE ================= -->
+<section class="sec" id="venue">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Venue</p>
+      <h2 class="h2">FIL, Lisbon — a 1940s market that became a tech campus.</h2>
+    </div>
+    <div class="venue-grid">
+      <div class="map-card rv">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Simplified map of the FIL venue on the Lisbon riverside">
+          <defs>
+            <linearGradient id="river" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3fd18b" stop-opacity=".30"/>
+              <stop offset="1" stop-color="#3fd18b" stop-opacity=".08"/>
+            </linearGradient>
+          </defs>
+          <rect width="520" height="340" fill="#0c1a13" rx="14"/>
+          <path d="M-20 250 C 120 210, 200 300, 330 268 S 520 230, 545 262" stroke="url(#river)" stroke-width="46" fill="none" stroke-linecap="round"/>
+          <g stroke="rgba(255,255,255,.07)" stroke-width="1">
+            <path d="M0 60h520M0 120h520M0 180h520M0 240h520"/>
+            <path d="M80 0v340M160 0v340M240 0v340M320 0v340M400 0v340"/>
+          </g>
+          <g fill="rgba(255,255,255,.10)">
+            <rect x="30" y="40" width="70" height="46" rx="5"/>
+            <rect x="120" y="34" width="52" height="58" rx="5"/>
+            <rect x="196" y="40" width="76" height="30" rx="5"/>
+            <rect x="330" y="30" width="64" height="62" rx="5"/>
+            <rect x="420" y="46" width="58" height="48" rx="5"/>
+            <rect x="36" y="110" width="86" height="40" rx="5"/>
+            <rect x="150" y="86" width="64" height="44" rx="5"/>
+            <rect x="330" y="112" width="92" height="42" rx="5"/>
+            <rect x="440" y="118" width="46" height="38" rx="5"/>
+            <rect x="44" y="186" width="72" height="38" rx="5"/>
+            <rect x="360" y="184" width="56" height="40" rx="5"/>
+          </g>
+          <g stroke="rgba(255,255,255,.16)" stroke-width="1.5" stroke-dasharray="4 5">
+            <path d="M134 208 C 182 190, 214 142, 268 118"/>
+          </g>
+          <g>
+            <circle cx="268" cy="118" r="26" fill="#3fd18b" opacity=".12"/>
+            <circle cx="268" cy="118" r="13" fill="#3fd18b" opacity=".25"/>
+            <circle cx="268" cy="118" r="6.5" fill="#3fd18b"/>
+            <text x="268" y="84" fill="#e9f4ee" font-family="Outfit,sans-serif" font-size="14" font-weight="600" text-anchor="middle">FIL — Pavilhão 1</text>
+          </g>
+          <g font-family="JetBrains Mono,monospace" font-size="9.5" fill="#6d8379" letter-spacing="1.2">
+            <text x="24" y="322">RIBEIRA DO TEJO</text>
+            <text x="404" y="322">ALFAMA</text>
+            <text x="24" y="26">SANTA APOLÓNIA</text>
+            <text x="436" y="28">BAIXA</text>
+          </g>
+          <circle cx="130" cy="209" r="4.5" fill="none" stroke="#95aa9f" stroke-width="1.5"/>
+            <circle cx="130" cy="209" r="9" fill="none" stroke="#95aa9f" stroke-width="1" opacity=".45"/>
+          <text x="150" y="213" font-family="Outfit,sans-serif" font-size="11" fill="#95aa9f">15 min walk from Santa Apolónia</text>
+        </svg>
+      </div>
+      <div class="rv d1">
+        <div class="travel">
+          <div class="travel-row"><span class="k">Airport</span><p>Humberto Delgado — metro line, direct</p><span class="min">20 min</span></div>
+          <div class="travel-row"><span class="k">Rail</span><p>Santa Apolónia, then 15 min walk</p><span class="min">15 min</span></div>
+          <div class="travel-row"><span class="k">Metro</span><p>Santa Apolónia — blue line</p><span class="min">5 min</span></div>
+          <div class="travel-row"><span class="k">Hotels</span><p>Partner rate at 6 nearby stays, code CANOPY</p><span class="min">from 90€</span></div>
+        </div>
+        <p class="lede" style="margin-top:26px;font-size:15px">Pavilhão 1 sits on the eastern edge of the riverside, an eight-minute walk from the ferry terminal — and a ten-minute walk from the last bars in Alfama, which we have timed accordingly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TICKETS ================= -->
+<section class="sec" id="tickets">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <p class="eyebrow">Tickets</p>
+        <h2 class="h2">Pick how deep you want to go.</h2>
+      </div>
+      <p class="lede" style="margin:0;max-width:44ch">All tiers include the full three-day programme, lunch and coffee. Prices exclude 23% IVA. Early-bird ends 31 October 2026.</p>
+    </div>
+
+    <div class="tk-grid">
+      <div class="card tk-featured rv">
+        <span class="tk-tag">Most chosen</span>
+        <p class="tk-name">Tier 02 · Canopy</p>
+        <div class="tk-price">€690<small>+ IVA</small></div>
+        <p class="tk-note">For people who want to work, not just listen.</p>
+        <ul class="tk-feats">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>All keynotes, breakouts and every stage</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Two hands-on lab seats — choose in the app</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Lisbon dinner on Friday night</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Speaker lounge and priority seating</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Full session recordings for 12 months</li>
+        </ul>
+        <a href="#tickets" class="btn" style="margin-top:26px;position:relative;z-index:2">Get Canopy pass
+          <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="tk-side">
+        <div class="card tk-card rv d1">
+          <div class="row">
+            <div>
+              <p class="tk-name">Tier 01 · Field</p>
+              <div class="tk-price">€340</div>
+              <p class="tk-note">Full programme access, three days.</p>
+            </div>
+          </div>
+          <ul class="tk-feats">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Main stage + breakouts</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Lunch, coffee and opening night</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Recordings included</li>
+          </ul>
+          <a href="#tickets" class="btn ghost">Get Field pass</a>
+        </div>
+
+        <div class="card tk-card rv d2">
+          <div class="row">
+            <div>
+              <p class="tk-name">Tier 03 · Institution</p>
+              <div class="tk-price">€1,900</div>
+              <p class="tk-note">Four passes, closed rooms, one invoice.</p>
+            </div>
+          </div>
+          <ul class="tk-feats">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Four Canopy passes</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Investor office hours + private roundtables</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>Logo placement + team dinner table</li>
+          </ul>
+          <a href="#tickets" class="btn ghost">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="h2">Before you ask.</h2>
+      </div>
+      <p class="lede" style="margin:0;max-width:44ch">Still unsure? Write to <span style="color:var(--accent)">hello@canopy.lisbon</span> and a human replies within a working day — usually the same day.</p>
+    </div>
+    <div class="faq rv" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-band">
+  <div class="aurora a1"></div>
+  <div class="wrap cta-inner">
+    <div class="rv">
+      <p class="eyebrow">Stay close</p>
+      <h2 class="h2">Be there when it grows.</h2>
+      <p class="lede">Speakers announced monthly, early-bird pricing, and the full schedule the week it opens. No noise.</p>
+    </div>
+    <div class="rv d1">
+      <form class="signup" id="signup" novalidate>
+        <input type="email" id="email" placeholder="you@company.com" aria-label="Email address" autocomplete="email" required>
+        <button class="btn" type="submit">Notify me
+          <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <p class="form-note" id="form-note">Join 18,000 people who get the schedule first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-col">
+        <a href="#top" class="brand" style="margin-bottom:14px">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 29V13" stroke="#3fd18b" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 15C16 9.5 12 5 6.5 4c0 6.5 4 11 9.5 11Z" stroke="#3fd18b" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M16 19c0-5.5 4-10 9.5-11 0 6.5-4 11-9.5 11Z" stroke="#8fe7b6" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>CANOPY<small>LISBON · 2027</small></span>
+        </a>
+        <p style="color:var(--muted-2);font-size:14px;max-width:34ch;margin:14px 0 0">A three-day summit on climate, cities and systems. Built in Lisbon since 2019.</p>
+        <div class="socials" style="margin-top:22px">
+          <a href="#top" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#top" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 4 16 16M20 4 4 20"/></svg></a>
+          <a href="#top" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></a>
+          <a href="#top" aria-label="RSS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h5>Event</h5>
+        <a href="#programme">Programme</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#tracks">Tracks</a>
+        <a href="#venue">Venue</a>
+        <a href="#tickets">Tickets</a>
+      </div>
+      <div class="f-col">
+        <h5>Attend</h5>
+        <a href="#tickets">Buy a pass</a>
+        <a href="#tickets">Group passes</a>
+        <a href="#venue">Travel &amp; stay</a>
+        <a href="#faq">Accessibility</a>
+        <a href="#faq">Visa letters</a>
+      </div>
+      <div class="f-col">
+        <h5>Company</h5>
+        <a href="#top">About</a>
+        <a href="#top">Partner with us</a>
+        <a href="#top">Press</a>
+        <a href="#top">Code of conduct</a>
+        <a href="#top">Contact</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Canopy Summit Unipessoal Lda · Lisboa, Portugal</span>
+      <span style="font-family:var(--mono);font-size:11.5px;letter-spacing:.14em">MADE ON THE RIVERSIDE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- nav state ---------- */
+  var nav = document.getElementById('nav'),
+      burger = document.getElementById('burger'),
+      drawer = document.getElementById('drawer'),
+      progress = document.getElementById('progress');
+
+  function onScroll(){
+    var y = window.scrollY || 0;
+    nav.classList.toggle('stuck', y > 24);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  burger.addEventListener('click', function(){
+    var open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      drawer.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    });
+  });
+
+  /* ---------- reveal on scroll ---------- */
+  var rvs = document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    rvs.forEach(function(el){ io.observe(el); });
+  } else {
+    rvs.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- countdown ---------- */
+  var target = new Date('2027-03-18T09:00:00+01:00').getTime();
+  var cd = {d:document.getElementById('cd-d'), h:document.getElementById('cd-h'), m:document.getElementById('cd-m'), s:document.getElementById('cd-s')};
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var diff = target - Date.now();
+    if(diff < 0) diff = 0;
+    var sec = Math.floor(diff/1000);
+    cd.d.textContent = pad(Math.floor(sec/86400));
+    cd.h.textContent = pad(Math.floor(sec/3600)%24);
+    cd.m.textContent = pad(Math.floor(sec/60)%60);
+    cd.s.textContent = pad(sec%60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---------- live registration counter ---------- */
+  var live = document.getElementById('live-count');
+  if(live && !reduce){
+    var base = 2847;
+    setInterval(function(){
+      base += Math.floor(Math.random()*3);
+      live.textContent = base.toLocaleString('en-US');
+    }, 4200);
+  }
+
+  /* ---------- count-up stats ---------- */
+  var counters = document.querySelectorAll('[data-count]');
+  function runCount(el){
+    var end = parseInt(el.getAttribute('data-count'),10), start = null, dur = 1500;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start)/dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(end * eased).toLocaleString('en-US');
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ runCount(en.target); io2.unobserve(en.target); }
+      });
+    }, {threshold:0.6});
+    counters.forEach(function(el){ io2.observe(el); });
+  } else {
+    counters.forEach(function(el){ el.textContent = el.getAttribute('data-count'); });
+  }
+
+  /* ---------- bench bars ---------- */
+  var bars = document.querySelectorAll('.bar-fill');
+  if('IntersectionObserver' in window){
+    var io3 = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.style.width = en.target.getAttribute('data-w') + '%';
+          io3.unobserve(en.target);
+        }
+      });
+    }, {threshold:0.4});
+    bars.forEach(function(b){ io3.observe(b); });
+  } else {
+    bars.forEach(function(b){ b.style.width = b.getAttribute('data-w') + '%'; });
+  }
+
+  /* ---------- tabs ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+      tab.setAttribute('aria-selected','true');
+      document.getElementById(tab.getAttribute('aria-controls')).classList.add('on');
+    });
+  });
+
+  /* ---------- marquee duplication ---------- */
+  var mq = document.getElementById('mq');
+  if(mq) mq.innerHTML += mq.innerHTML;
+
+  /* ---------- signup ---------- */
+  var form = document.getElementById('signup'),
+      email = document.getElementById('email'),
+      note = document.getElementById('form-note');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = email.value.trim();
+    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    if(!ok){
+      note.textContent = 'Please enter a valid email address.';
+      note.className = 'form-note err';
+      email.focus();
+      return;
+    }
+    note.textContent = 'You’re on the list — the first schedule drop lands in October.';
+    note.className = 'form-note ok';
+    email.value = '';
+  });
+
+  /* ---------- particle field ---------- */
+  var cv = document.getElementById('particles');
+  if(cv && !reduce){
+    var ctx = cv.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0, pts = [], mouse = {x:-9999, y:-9999};
+    function resize(){
+      var r = cv.getBoundingClientRect();
+      W = r.width; H = r.height;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var count = Math.max(34, Math.min(92, Math.round(W * H / 17000)));
+      pts = [];
+      for(var i=0;i<count;i++){
+        pts.push({
+          x: Math.random()*W, y: Math.random()*H,
+          vx: (Math.random()-0.5)*0.28, vy: (Math.random()-0.5)*0.28,
+          r: Math.random()*1.5 + 0.6
+        });
+      }
+    }
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<pts.length;i++){
+        var p = pts[i];
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -20) p.x = W+20; if(p.x > W+20) p.x = -20;
+        if(p.y < -20) p.y = H+20; if(p.y > H+20) p.y = -20;
+        var dx = mouse.x - p.x, dy = mouse.y - p.y;
+        var md = Math.sqrt(dx*dx + dy*dy);
+        if(md < 150 && md > 0.01){
+          p.x -= dx/md * 0.42; p.y -= dy/md * 0.42;
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(63,209,139,' + (0.22 + p.r*0.16) + ')';
+        ctx.fill();
+        for(var j=i+1;j<pts.length;j++){
+          var q = pts[j];
+          var ddx = p.x-q.x, ddy = p.y-q.y;
+          var d = Math.sqrt(ddx*ddx + ddy*ddy);
+          if(d < 118){
+            ctx.beginPath();
+            ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+            ctx.strokeStyle = 'rgba(63,209,139,' + (0.14 * (1 - d/118)).toFixed(3) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+    cv.addEventListener('mousemove', function(e){
+      var r = cv.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    cv.addEventListener('mouseleave', function(){ mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener('resize', resize);
+    resize(); frame();
+  }
+
+  /* ---------- subtle tilt on ticket cards ---------- */
+  if(!reduce && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.tk-featured').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left)/r.width - 0.5;
+        var y = (e.clientY - r.top)/r.height - 0.5;
+        card.style.transform = 'perspective(1000px) rotateX(' + (-y*3.2).toFixed(2) + 'deg) rotateY(' + (x*4.2).toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+    });
+  }
+})();
+</script>
+
+<script>
+/* ---------- FAQ accordion ---------- */
+(function(){
+  var items = [
+    ['Is CANOPY in English?', 'Yes. The main stage runs in English; two breakouts each day run with live interpretation into Portuguese, French and Spanish.'],
+    ['Can I get a ticket for just one day?', 'Day passes exist from 1 November 2026 and are sold through the app. Note that Canopy-tier lab seats are allocated across all three days, so a single-day Canopy pass includes one lab seat only.'],
+    ['Do labs require technical skills?', 'About two thirds of labs are non-technical — heat networks, retrofit finance, procurement drafting. The rest assume comfort with spreadsheets or code, and each lab page lists the exact requirement.'],
+    ['Is the venue accessible?', 'Pavilhão 1 is step-free throughout, with reserved seating in every room, a quiet room on level 0, and live captions on the main stage. Share your requirements at checkout and the access team will confirm within two working days.'],
+    ['What is the refund policy?', 'Full refund up to 14 days before the event, less a €25 admin fee. After that, you can transfer your pass to a colleague free of charge until 10 March 2027.'],
+    ['Can I get an invoice and a visa invitation letter?', 'Yes. Invoices are issued at checkout for companies, and registered delegates can request a visa invitation letter from the week they register.']
+  ];
+  var list = document.getElementById('faq-list');
+  if(!list) return;
+  items.forEach(function(pair, i){
+    var q = document.createElement('div');
+    q.className = 'q';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded','false');
+    btn.setAttribute('aria-controls','faq-a-'+i);
+    btn.innerHTML = '<span>' + pair[0] + '</span>' +
+      '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+    var a = document.createElement('div');
+    a.className = 'a';
+    a.id = 'faq-a-'+i;
+    var p = document.createElement('p');
+    p.textContent = pair[1];
+    a.appendChild(p);
+    btn.addEventListener('click', function(){
+      var open = q.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    q.appendChild(btn); q.appendChild(a);
+    list.appendChild(q);
+  });
+})();
+</script>
+</body>
+</html>
